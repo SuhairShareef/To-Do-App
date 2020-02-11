@@ -9,14 +9,17 @@ html, body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-body {
+body .container {
+  width: 50%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: auto;
 }
 
 .button {

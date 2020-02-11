@@ -16,9 +16,17 @@ app.get('/', function(req, res){
 
 io.sockets.on("connection", function(socket) {
     connections.push(socket);
-    console.log('Connected: %s sockets conencted', connections.length);
+    console.log('Connected: %s sockets connected', connections.length);
 
-    // Disconnecte
-    connections.splice(connections.indexOf(socket), 1);
-    console.log('Diconnected: %s sockets conencted', connections.length);
-})
+    // Disconnect
+    socket.on('disconnect', function(data){
+        connections.splice(connections.indexOf(socket), 1);
+        console.log('Diconnected: %s socket diconnected', connections.length);
+    });
+
+    // Add Task 
+    socket.on('add task', function(data){
+        console.log(data);
+        io.sockets.emit('new task', {msg: data});
+    });
+});

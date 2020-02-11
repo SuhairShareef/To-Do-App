@@ -3,24 +3,49 @@
 <head>
     <title>To Do App</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="top">
+        <div class="left">
             <h3>Online Users</h3>
             <ul class="list-group" id="users"></ul>
         </div>
-        <div class="to-do-list"></div>
-        <div class="to-do-form">
-            <form id="toDoForm">
-                <label>Add Title</label>
-                <textarea maxlength="20" class="text-area" id="title"></textarea>
-                <br>
-                <label>Add Task</label>
-                <textarea maxlength="200" class="text-area" id="task"></textarea>
-                <input type="submit" class="button" value="Post Task"/>
-            </form>
+        <div class="right">
+            <div class="to-do-list" id="toDoList"></div>
+            <div class="to-do-form">
+                <form id="toDoForm">
+                    <label>Add Title</label>
+                    <textarea maxlength="20" class="text-area" id="title"></textarea>
+                    <br>
+                    <label>Add Task</label>
+                    <textarea maxlength="200" class="text-area" id="task"></textarea>
+                    <input type="submit" class="button" value="Post Task"/>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script>
+        $(function(){
+            var socket = io.connect();
+            var $toDoForm = $('#toDoForm');
+            var $taskTitle = $('#title');
+            var $taskBody = $('#task');
+            var $toDoList = $('#ToDoList');
+
+            $toDoForm.submit(function(e){
+                e.preventDefault();
+                socket.emit('add task', "Title: " + $taskTitle.val());
+                socket.emit('add task', "Task : " + $taskBody.val());
+            });
+
+            socket.on('new task', function(data){
+                //$toDoList.append('<div class="left"')
+                console.log(data);
+            });
+        });
+    </script>
 </body>
 </html>
