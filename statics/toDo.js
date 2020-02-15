@@ -9,17 +9,25 @@ var taskTitle = document.getElementById('title'),
     addTask.addEventListener('click', function(e){
 
         e.preventDefault();
-        socket.emit('to do list',{
-            title: taskTitle.value,
-            task: taskBody.value
-        });
+        if (!(taskTitle.value == '' || taskBody.value == '')) {
+ 
+            socket.emit('to do list',{
+                title: taskTitle.value,
+                task: taskBody.value
+            });
+        }
+
+        else{
+
+            console.log('The fields are empty!');
+        }
 
         toDoForm.reset();
     });
 
     //Event Listener
     socket.on('to do list', function(data){
-        console.log(data);
-        toDoList.innerHTML += '<div class="task-container"><div class="task-title">' + data.title + '</div>' +'<div class="task-body">' + data.task + '</div></div>';
-        console.log(toDoList.innerHTML);
+
+        toDoList.innerHTML += '<div class="task-container"><div class="task-title">' + 
+        data.title + '</div>' +'<div class="task-body">' + data.task + '</div></div>';
     });
