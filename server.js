@@ -1,20 +1,20 @@
 var express = require('express');
+var socket = require('socket.io');
 
 var app = express();
-app.use(express.static('styles'));
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
-users = [];
-connections = [];
-
-server.listen(process.env.PORT || 3000);
-console.log('Surver running ... ');
-
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+var server = app.listen(3000, function(){
+    console.log('Surver running ... ');
 });
 
+app.use(express.static('statics'));
+
+var io = socket(server);
+/* users = [];
+connections = [];
+
+
 io.sockets.on("connection", function(socket) {
+    // Connected
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
 
@@ -23,10 +23,11 @@ io.sockets.on("connection", function(socket) {
         connections.splice(connections.indexOf(socket), 1);
         console.log('Diconnected: %s socket diconnected', connections.length);
     });
+}); */
 
-    // Add Task 
-    socket.on('add task', function(data){
-        console.log(data);
-        io.sockets.emit('new task', {msg: data});
+io.on("connection", function(socket){
+       // Add Task 
+        socket.on('to do list', function(data){
+        io.sockets.emit('to do list', data);
     });
 });

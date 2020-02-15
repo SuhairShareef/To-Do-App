@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Do App</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h3>Online Users</h3>
+            <ul class="list-group" id="users"></ul>
+        </div>
+        <div class="right">
+            <div class="to-do-list" id="toDoList">
+                <div class="task-container">
+                    <div class="task-title">
+                        nnnnn
+                    </div><div class="task-body">
+                        hghkgkjghj
+                    </div>
+                </div>
+            </div>
+            <div class="to-do-form">
+                <form id="toDoForm">
+                    <label>Add Title</label>
+                    <input maxlength="20" type="text" class="title" id="title" placeholder="Enter title ..." required/>
+                    <br>
+                    <label>Add Task</label>
+                    <input maxlength="200" type="text" class="task" id="task" placeholder="Enter task ..." required/>
+                    <input type="submit" id="submit" class="button"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="toDo.js"></script>
+</body>
+</html>
